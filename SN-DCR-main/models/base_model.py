@@ -2,7 +2,7 @@ import os
 import torch
 from collections import OrderedDict
 from abc import ABC, abstractmethod
-from . import networks_global
+from . import networks_sn
 
 
 class BaseModel(ABC):
@@ -93,7 +93,7 @@ class BaseModel(ABC):
             opt (Option class) -- stores all the experiment flags; needs to be a subclass of BaseOptions
         """
         if self.isTrain:
-            self.schedulers = [networks_global.get_scheduler(optimizer, opt) for optimizer in self.optimizers]
+            self.schedulers = [networks_sn.get_scheduler(optimizer, opt) for optimizer in self.optimizers]
         if not self.isTrain or opt.continue_train:
             load_suffix = opt.epoch
             self.load_networks(load_suffix)
