@@ -46,12 +46,8 @@ class SNDCRModel(BaseModel):
         else:  # during test time, only load G
             self.model_names = ['G']
 
-        if self.opt.QS_mode == 'global':
-            networks = networks_global
-        elif self.opt.QS_mode == 'local':
-            networks = networks_local
-        else:
-            networks = networks_local_global
+
+        networks = networks_sn
 
         # define networks (both generator and discriminator)
         self.netG = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, opt.netG, opt.normG, not opt.no_dropout, opt.init_type, opt.init_gain, opt.no_antialias, opt.no_antialias_up, self.gpu_ids, opt)
